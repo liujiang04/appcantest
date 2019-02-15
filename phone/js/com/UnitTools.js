@@ -21,3 +21,34 @@ function getLocVal(key){
         return "";
 }
 gt.getLocVal = getLocVal
+
+
+/**
+ * 图片转base64
+ */
+
+function getBase64ByLocalUrl(url) {//这是站内的一张图片资源，采用的相对路径//实现将项目的图片转化成base64
+    function convertImgToBase64(url, callback, outputFormat){
+        var canvas = document.createElement('CANVAS'),
+            ctx = canvas.getContext('2d'),
+            img = new Image;
+        img.crossOrigin = 'Anonymous';
+        img.onload = function(){
+            canvas.height = img.height;
+            canvas.width = img.width;
+            ctx.drawImage(img,0,0);
+            var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+            callback.call(this, dataURL);
+            canvas = null;
+        };
+        img.src = url;
+    }
+    base64Img = ""
+    convertImgToBase64(url, function(base64){
+        //转化后的base64
+        alert(base64Img);
+        base64Img = base64
+    });
+    return base64Img
+}
+ gt.getBase64ByLocalUrl = getBase64ByLocalUrl
