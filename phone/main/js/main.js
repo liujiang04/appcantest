@@ -1,5 +1,3 @@
-
-
 appcan.button("#nav-left", "btn-act",
     function () {
     });
@@ -75,15 +73,15 @@ var Service = new MVVM.Service({
     validate: function (data, option) {
         return 0;
     },
-    changeData:function(data){
+    changeData: function (data) {
         this.dosuccess(data)
     },
 
     ajaxCall: function (data, option) {
         var self = this;
-        if(data){
+        if (data) {
             self.dosuccess(getData(), option)
-        }else {
+        } else {
 
         }
         option.success(self.dosuccess(getData(), option));
@@ -105,9 +103,7 @@ var Service = new MVVM.Service({
     }
 });
 var Model_Collection = MVVM.Model.extend({
-    defaults: {
-
-    },
+    defaults: {},
     //在model创建后执行的方法
     initialize: function () {
         console.log("数据初始化");
@@ -143,6 +139,13 @@ var Model_Collection = MVVM.Model.extend({
         //     //return 55 + 55;
         //   }
         // }
+        add: {
+            //这里是参数的依赖，也可以使用this.get("username")
+            get: function () {
+                console.log(this.get("sort"))
+                //return 55 + 55;
+            }
+        }
     },
     sync: function (method, model, options) {
         console.log(method, model, options);
@@ -183,13 +186,15 @@ var Collection = new (MVVM.Collection.extend({
     }
 }))();
 var ViewModel = new (MVVM.ViewModel.extend({
-    collection: Collection,
     el: "#sortList",
+
+    collection: Collection,
+
     initialize: function () {
         this.collection.fetch()
         return
     },
-    itemEvents:{
+    itemEvents: {
         "tap": function (ev, param) {
             console.log(ev)
             console.log(ev.data)
@@ -238,4 +243,4 @@ var ViewModel = new (MVVM.ViewModel.extend({
 //
 // ViewModel.collection.trigger('add',"")
 
- //Cannot read property 'trigger' of undefined appcan 里面 zport  版本问题 不用管
+//Cannot read property 'trigger' of undefined appcan 里面 zport  版本问题 不用管
