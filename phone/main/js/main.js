@@ -53,12 +53,9 @@ appcan.ready(function () {
             $("#ScrollContent").trigger("more", this);
         }).hide();
 })
-
 function getData() {
     return da
 }
-
-
 /*mvvm*/
 var Service = new MVVM.Service({
     pretreatment: function (data, option) {
@@ -76,14 +73,8 @@ var Service = new MVVM.Service({
     changeData: function (data) {
         this.dosuccess(data)
     },
-
     ajaxCall: function (data, option) {
         var self = this;
-        if (data) {
-            self.dosuccess(getData(), option)
-        } else {
-
-        }
         option.success(self.dosuccess(getData(), option));
         /*appcan.request.ajax({
                 url: "",
@@ -103,47 +94,12 @@ var Service = new MVVM.Service({
     }
 });
 var Model_Collection = MVVM.Model.extend({
-    defaults: {
-        "id": 5,
-    "sort": "其它",
-    "num": "0",
-    "total": "10",
-    },
+    defaults: {},
     //在model创建后执行的方法
     initialize: function () {
         console.log("数据初始化");
     },
-//由于我们从接口获取的数据格式JSON格式，很多标记都是boolean或者int，如何把这些标记转换为页面显示的文字描述，或者通过几个属性运算得到一个新的输出结果，这就要用到model的computeds方法，直接举个栗子吧：
     computeds: {
-        //  title:{
-        //   get:function(){
-        //       var orderList = this.get('orderList');
-        //       return orderList[0].title;
-        //   }
-        // },
-        // pay_price:{
-        //     get:function(){
-        //       var orderList = this.get('orderList');
-        //       return orderList[0].pay_price;
-        //     }
-        // },
-        // show_expresscom:{
-        //     get:function(){
-        //         if(this.get('expresscom') == ''){
-        //             return "暂无";
-        //         }else{
-        //             return this.get('expresscom');
-        //         }
-        //     }
-        //
-        // },
-        // sort: {
-        // //这里是参数的依赖，也可以使用this.get("username")
-        //   get: function () {
-        //       console.log(this.get("sort"))
-        //     //return 55 + 55;
-        //   }
-        // }
         add: {
             //这里是参数的依赖，也可以使用this.get("username")
             get: function () {
@@ -184,7 +140,6 @@ var Collection = new (MVVM.Collection.extend({
             case "read":
                 Service.request({}, options);
                 break;
-
             default:
                 break;
         }
@@ -192,9 +147,7 @@ var Collection = new (MVVM.Collection.extend({
 }))();
 var ViewModel = new (MVVM.ViewModel.extend({
     el: "#sortList",
-
     collection: Collection,
-
     initialize: function () {
         this.collection.fetch()
         return
