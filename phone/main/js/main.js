@@ -71,7 +71,7 @@ var Service = new MVVM.Service({
         return err;
     },
     validate: function (data, option) {
-        return 0;
+        return data;
     },
     changeData: function (data) {
         this.dosuccess(data)
@@ -103,7 +103,12 @@ var Service = new MVVM.Service({
     }
 });
 var Model_Collection = MVVM.Model.extend({
-    defaults: {},
+    defaults: {
+        "id": 5,
+    "sort": "其它",
+    "num": "0",
+    "total": "10",
+    },
     //在model创建后执行的方法
     initialize: function () {
         console.log("数据初始化");
@@ -196,18 +201,12 @@ var ViewModel = new (MVVM.ViewModel.extend({
     },
     itemEvents: {
         "tap": function (ev, param) {
-            console.log(ev)
+            console.log("index = > " + _.indexOf(_.pluck(Collection.models, 'id'),this.model.get("id")))
             console.log(ev.data)
             //this.collection.set("add", da)
         }
     },
     events: {
-        "tap": function (ev, param) {
-            console.log(ev)
-            console.log(ev.data)
-            //this.collection.set("add", da)
-            this.collection.fetch()
-        },
         "reload": function (ev, param) {
             console.log('reload')
             totalpage = 0;
